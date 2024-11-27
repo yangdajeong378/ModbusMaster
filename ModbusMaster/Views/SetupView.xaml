@@ -1,0 +1,47 @@
+﻿<Window x:Class="ModbusMaster.Views.SetupView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ModbusMaster.Helpers"
+        mc:Ignorable="d"
+        Title="Read" Height="200" Width="400" ResizeMode="NoResize">
+    
+    <Grid Margin="20">
+        <!-- Row Definitions -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Column Definitions -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Slave ID -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Slave ID:" VerticalAlignment="Center" Margin="0,0,10,10"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SlaveID}" Width="200" Margin="10,5,0,5"/>
+
+        <!-- Address -->
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Address:" VerticalAlignment="Center" Margin="0,0,10,10"/>
+        <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Address}" Width="200" Margin="10,5,0,5"/>
+
+        <!-- Quantity -->
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Quantity:" VerticalAlignment="Center" Margin="0,0,10,10"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Quantity}" Width="200" Margin="10,5,0,5"/>
+
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10" Grid.Column="1">
+            <Button Content="Cancle" Width="100" Margin="5"  Command="{x:Static local:CommandHelper.CancelCommand}"/>
+            <Button Content="OK" Width="100" Margin="5" Command="{Binding ConnectCommand}"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

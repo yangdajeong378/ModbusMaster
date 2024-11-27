@@ -3,10 +3,83 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ModbusMaster"
+        xmlns:local="clr-namespace:ModbusMaster.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Background="White"
+        Title="ModebusMaster" Height="600" Width="500">
+
+
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <local:ConnectViewModel x:Key="ConnectViewModel" />
+    </Window.Resources>
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="90*"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--메뉴라인-->
+        <Menu>
+            <MenuItem Header="Connection">
+                <MenuItem Header="Connet..." Command="{Binding ConnectCommand}"/>
+            </MenuItem>
+
+            <MenuItem Header="Disconnect">
+                <MenuItem Header="Disconnect..." Command="{Binding WarningCommand}"/>
+            </MenuItem>
+
+            <MenuItem Header="Setup">
+                <MenuItem Header="Read / Write Definition..." Command="{Binding ReadWriteDefinitionCommad}"/>
+            </MenuItem>
+        </Menu>
+
+
+        <!--레지스터 콤보박스, 연결 상태-->
+        <Grid Grid.Column="0" Grid.Row="1" Background="#d9d9d9">
+
+            <StackPanel Orientation="Horizontal">
+                <!-- 레지스터 콤보박스 -->
+                <ComboBox ItemsSource="{Binding RegistersList}" 
+                          SelectedItem="{Binding SelectedRegister}" 
+                          Width="160" Height="30"
+                          Margin="4 4 4 4"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          FontSize="14"/>
+                        
+                <!-- 연결 상태 표시 -->
+                <TextBlock Text="{Binding ConnectionStatus}" 
+                           DataContext="{DynamicResource ConnectViewModel}"
+                           FontSize="15" 
+                           FontWeight="Bold"
+                           Margin="10 8 4 4"
+                           Foreground="Green"/>
+            </StackPanel>
+        </Grid>
+
+
+        <!--표-->
+        <Grid Grid.Column="0" Grid.Row="2">
+            <!--<Grid.ColumnDefinitions>
+                <ColumnDefinition Width="249*"/>
+                <ColumnDefinition Width="251*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.ColumnSpan="2">
+                <TextBlock Text="{Binding ConnectText}"/>
+
+
+            </StackPanel>-->
+        </Grid>
 
     </Grid>
 </Window>
