@@ -8,15 +8,7 @@
         Background="White"
         Title="ModebusMaster" Height="600" Width="500">
 
-
-    <Window.DataContext>
-        <local:MainViewModel/>
-    </Window.DataContext>
-
-    <Window.Resources>
-        <local:ConnectViewModel x:Key="ConnectViewModel" />
-    </Window.Resources>
-
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
@@ -59,7 +51,6 @@
                         
                 <!-- 연결 상태 표시 -->
                 <TextBlock Text="{Binding ConnectionStatus}" 
-                           DataContext="{DynamicResource ConnectViewModel}"
                            FontSize="15" 
                            FontWeight="Bold"
                            Margin="10 8 4 4"

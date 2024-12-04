@@ -1,6 +1,8 @@
-﻿using ModbusMaster.Views;
+﻿using ModbusMaster.Interface;
+using ModbusMaster.Models;
+using ModbusMaster.Views;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data;
 using System.Windows;
 using System.Windows.Input;
 
@@ -15,9 +17,26 @@ namespace ModbusMaster.ViewModels
         HoldingRegisters
     }
 
-    public class MainViewModel  : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
+        public ObservableCollection<DataItema> RegisterItems { get; } = new ObservableCollection<DataItema>();
+        //public ObservableCollection<DataItem<ushort>> HoldingItems { get; } = new ObservableCollection<DataItem<ushort>>();
+
+        private IModel mainModel = ModbusModel.Instance;
+
         public List<Registers> RegistersList { get; }
+
+
+        private string _connectionStatus = "Not Connect";
+        public string ConnectionStatus
+        {
+            get { return _connectionStatus; }
+            set
+            {
+                _connectionStatus = value;
+                OnPropertyChanged("ConnectionStatus");// UI에 변경 알림
+            }
+        }
 
 
         private Registers _selectedRegister;
@@ -27,7 +46,7 @@ namespace ModbusMaster.ViewModels
             set
             {
                 _selectedRegister = value;
-                OnPropertyChanged(nameof(SelectedRegister));       
+                OnPropertyChanged(nameof(SelectedRegister));
             }
         }
 
@@ -47,9 +66,31 @@ namespace ModbusMaster.ViewModels
             ConnectCommand = new RelayCommand(OpenConnect);
             ReadWriteDefinitionCommad = new RelayCommand(OpenSetup);
             WarningCommand = new RelayCommand(OpenWarning);
+
+
+            mainModel.ReadCoilEventHandler += MainModel_ReadCoilEventHandler;
+            mainModel.ReadHoldingRegEventHandler += MainModel_ReadHoldingRegEventHandler;
+            mainModel.ConnectEventHandler += MainModel_ConnectEventHandler;
         }
 
-        private void OpenConnect() 
+        private void MainModel_ConnectEventHandler(bool isConnect)
+        {
+            ConnectionStatus = isConnect ? "Connect" : "Not Connect";
+        }
+
+        private void MainModel_ReadHoldingRegEventHandler(int startAddr, int count, List<DataItema> datas)
+        {
+            RegisterItems.Clear();
+            datas.ForEach(data => RegisterItems.Add(data));
+        }
+
+        private void MainModel_ReadCoilEventHandler(int startAddr, int count, List<DataItema> datas)
+        {
+            RegisterItems.Clear();
+            datas.ForEach(data => RegisterItems.Add(data));
+        }
+
+        private void OpenConnect()
         {
             var connetView = new ConnectView();
             bool? result = connetView.ShowDialog();
@@ -63,7 +104,7 @@ namespace ModbusMaster.ViewModels
 
         private void OpenWarning()
         {
-            var warning = new WarningView();
+            var warning = new DisconnectWarningView();
             bool? result = warning.ShowDialog();
 
             // 결과 처리

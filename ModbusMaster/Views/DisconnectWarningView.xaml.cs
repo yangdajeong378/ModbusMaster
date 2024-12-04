@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace ModbusMaster.Views
 {
     /// <summary>
-    /// WarningView.xaml에 대한 상호 작용 논리
+    /// DisconnectWarningView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class WarningView : Window
+    public partial class DisconnectWarningView : Window
     {
-        public WarningView()
+        public DisconnectWarningView()
         {
             InitializeComponent();
         }

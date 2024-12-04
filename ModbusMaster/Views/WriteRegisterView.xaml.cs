@@ -17,9 +17,9 @@ namespace ModbusMaster.Views
     /// <summary>
     /// WriteRegister.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class WriteRegister : Window
+    public partial class WriteRegisterView : Window
     {
-        public WriteRegister()
+        public WriteRegisterView()
         {
             InitializeComponent();
         }

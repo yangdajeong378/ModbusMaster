@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ModbusMaster.Helpers"
         mc:Ignorable="d"
-        Title="Read" Height="200" Width="400" ResizeMode="NoResize">
+        Title="Read" Height="200" Width="400" ResizeMode="NoResize"
+        Background="LightGray">
     
     <Grid Margin="20">
         <!-- Row Definitions -->

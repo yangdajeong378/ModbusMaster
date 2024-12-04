@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using ModbusMaster.ViewModels;
+using ModbusMaster.Views;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,6 +22,7 @@ namespace ModbusMaster
         {
             InitializeComponent();
 
+            DataContext = new MainViewModel();
         }
     }
 }

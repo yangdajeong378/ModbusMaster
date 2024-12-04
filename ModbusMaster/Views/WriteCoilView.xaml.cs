@@ -17,9 +17,9 @@ namespace ModbusMaster.Views
     /// <summary>
     /// WriteCoil.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class WriteCoil : Window
+    public partial class WriteCoilView : Window
     {
-        public WriteCoil()
+        public WriteCoilView()
         {
             InitializeComponent();
         }
